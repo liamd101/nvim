@@ -1,3 +1,3 @@
 # NeoVim Config
 
-Updated 7/14/2023
+Updated 8/31/2023
