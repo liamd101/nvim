@@ -2,9 +2,12 @@
 
 Updated 8/31/2023
 
-## Overview
+## Packages used
 
-- LuaSnip/
-    - Contains LuaSnip snippets for different file types
-- after/plugin
-    - Contains configs for different plugins
+- [Harpoon](https://github.com/ThePrimeagen/harpoon)
+- [Packer](https://github.com/wbthomas/packer.nvim)
+- [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+- [Tree Sitter](https://github.com/nvim-treesitter/nvim-treesitter)
+- [LuaSnip](https://github.com/L3MON4D3/LuaSnip)
+- [Pair Tree](https://github.com/tmsvg/pear-tree)
+- [LSP Zero](https://github.com/VonHeikemen/lsp-zero.nvim)
