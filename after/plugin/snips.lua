@@ -11,4 +11,3 @@ vim.keymap.set('i', '<C-k>', function() if ls.expand_or_jumpable() then ls.expan
 
 require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})
 
-
