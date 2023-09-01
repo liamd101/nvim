@@ -14,10 +14,10 @@ local rep = require("luasnip.extras").rep
 local tex_utils = require('luasnip-helper-funcs')
 
 
-ls.add_snippets("all", {
+ls.add_snippets("tex", {
     s({ trig = "template", desc = "Basic template for Math assignments" },
         fmt([[
-            ss[10pt]{article}
+            \documentclass[10pt]{article}
 
             \usepackage[margin=1in]{geometry}
             \usepackage{amsmath,amsthm,amssymb, graphicx, multicol, array}
@@ -157,4 +157,4 @@ ls.add_snippets("all", {
 
 })
 
-require("luasnip.loaders.from_lua").load({ include = "all" })
+require("luasnip.loaders.from_lua").load({ include = "tex" })

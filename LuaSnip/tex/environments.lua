@@ -13,7 +13,7 @@ local rep = require("luasnip.extras").rep
 local tex_utils = require('luasnip-helper-funcs')
 
 
-ls.add_snippets( "all", {
+ls.add_snippets( "tex", {
     s({ trig = "beg", desc = "begin{} / end{}", snippetType="autosnippet" },
 
         fmt([[
@@ -85,6 +85,5 @@ ls.add_snippets( "all", {
 
 })
 
-require("luasnip.loaders.from_lua").load({ include = "all" })
-
+require("luasnip.loaders.from_lua").load({ include = "tex" })
 
