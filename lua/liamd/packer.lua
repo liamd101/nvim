@@ -23,7 +23,6 @@ return require('packer').startup(function(use)
  
    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
    use('ThePrimeagen/harpoon')
-   use('mbbill/undotree')
    use('tpope/vim-fugitive')
    use('tmsvg/pear-tree')
  
@@ -53,7 +52,10 @@ return require('packer').startup(function(use)
   use({
     "L3MON4D3/LuaSnip",
     -- follow latest release.
-    tag = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    tag = "v2.0.0", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    run = "make install_jsregexp",
   })
+
+  use('lervag/vimtex')
 
 end)
