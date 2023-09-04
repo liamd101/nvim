@@ -13,8 +13,8 @@ local rep = require("luasnip.extras").rep
 local tex_utils = require('luasnip-helper-funcs')
 
 
-ls.add_snippets( "tex", {
-    s({ trig = "beg", desc = "begin{} / end{}", snippetType="autosnippet" },
+return {
+    s({ trig = "beg", dscr = "begin{} / end{}", snippetType="autosnippet" },
 
         fmt([[
             \begin{<>}
@@ -34,7 +34,7 @@ ls.add_snippets( "tex", {
         { condition = tex_utils.line_begin }
     ),
 
-    s({ trig = "enum", desc = "Enumerate", snippetType="autosnippet" },
+    s({ trig = "enum", dscr = "Enumerate", snippetType="autosnippet" },
 
         fmt([[
             \begin{enumerate}
@@ -50,7 +50,7 @@ ls.add_snippets( "tex", {
         { condition = tex_utils.line_begin }
     ),
 
-    s({ trig = "item", desc = "Itemize", snippetType="autosnippet" },
+    s({ trig = "item", dscr = "Itemize", snippetType="autosnippet" },
 
         fmt([[
             \begin{itemize}
@@ -65,7 +65,7 @@ ls.add_snippets( "tex", {
         { condition = tex_utils.line_begin }
     ),
 
-    s({ trig = "desc", desc = "Description" },
+    s({ trig = "desc", dscr = "Description" },
         fmt([[
             \begin{description}
                 \item<> <>
@@ -83,7 +83,19 @@ ls.add_snippets( "tex", {
         { condition = tex_utils.line_begin }
     ),
 
-})
+    s({ trig = "case", dscr = "Cases", snippetType="autosnippet" },
+        fmt([[
+            \begin{cases}
+                <>
+            \end{cases}
+            ]],
 
-require("luasnip.loaders.from_lua").load({ include = "tex" })
+            { i(0) },
+
+            { delimiters = "<>" }
+            ),
+        { condition = tex_utils.line_begin }
+    )
+
+}
 

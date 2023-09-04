@@ -14,8 +14,8 @@ local rep = require("luasnip.extras").rep
 local tex_utils = require('luasnip-helper-funcs')
 
 
-ls.add_snippets("tex", {
-    s({ trig = "template", desc = "Basic template for Math assignments" },
+return {
+    s({ trig = "template", dscr = "Basic template for Math assignments" },
         fmt([[
             \documentclass[10pt]{article}
 
@@ -53,7 +53,7 @@ ls.add_snippets("tex", {
         { condition = tex_utils.line_begin }
     ),
 
-    s({ trig = "cistemplate", desc = "Autofill UPenn CIS template"},
+    s({ trig = "cistemplate", dscr = "Autofill UPenn CIS template"},
         fmt([[
             \documentclass{article}
             \usepackage[letterpaper,top=0.25in,bottom=0.15in,left=0.5in,right=0.5in,includeheadfoot]{geometry}
@@ -143,7 +143,7 @@ ls.add_snippets("tex", {
         { condition = tex_utils.line_begin }
     ),
 
-    s({ trig = "cismq", desc = "CIS multi-part question template" },
+    s({ trig = "cismq", dscr = "CIS multi-part question template" },
         fmt([[
             \item\hfill\begin{enumerate}
                 <>
@@ -155,6 +155,5 @@ ls.add_snippets("tex", {
         { condition = tex_utils.line_begin }
     ),
 
-})
+}
 
-require("luasnip.loaders.from_lua").load({ include = "tex" })
