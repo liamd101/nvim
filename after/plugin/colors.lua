@@ -1,6 +1,5 @@
-
 function ColorMyPencils(color)
-	color = color or "neon"
+	color = color or "OceanicNext"
 	vim.cmd.colorscheme(color)
 end
 

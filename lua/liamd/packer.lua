@@ -6,27 +6,35 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
- 
+
    use {
  	  'nvim-telescope/telescope.nvim', tag = '0.1.2',
  	  -- or                            , branch = '0.1.x',
  	  requires = { {'nvim-lua/plenary.nvim'} }
  }
- 
+
    use({
  	'rafamadriz/neon',
  	as = "neon",
- 	config = function()
- 		vim.cmd('colorscheme neon')
- 	end
+ 	-- config = function()
+ 	-- 	vim.cmd('colorscheme neon')
+ 	-- end
    })
 
- 
+   use({
+       'mhartington/oceanic-next',
+       as = "OceanicNext",
+       config = function()
+           vim.cmd('colorscheme OceanicNext')
+       end
+   })
+
+
    use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
    use('ThePrimeagen/harpoon')
    use('tpope/vim-fugitive')
    use('tmsvg/pear-tree')
- 
+
    use {
  	  'VonHeikemen/lsp-zero.nvim',
  	  branch = 'v2.x',
@@ -41,14 +49,14 @@ return require('packer').startup(function(use)
  	  },
  	  {'williamboman/mason-lspconfig.nvim'}, -- Optional
 
- 
+
  	  -- Autocompletion
  	  {'hrsh7th/nvim-cmp'},     -- Required
  	  {'hrsh7th/cmp-nvim-lsp'}, -- Required
  	  {'L3MON4D3/LuaSnip'},     -- Required
    }
 
- 
+
  }
   use({
     "L3MON4D3/LuaSnip",
@@ -65,7 +73,5 @@ return require('packer').startup(function(use)
       "iamcco/markdown-preview.nvim",
       run = function() vim.fn["mkdp#util#install"]() end,
   })
-
-  use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
 
 end)
