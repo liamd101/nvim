@@ -74,4 +74,6 @@ return require('packer').startup(function(use)
       run = function() vim.fn["mkdp#util#install"]() end,
   })
 
+  use("PROgram52bc/vim-scallop")
+
 end)
