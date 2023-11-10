@@ -76,4 +76,6 @@ return require('packer').startup(function(use)
 
   use("PROgram52bc/vim-scallop")
 
+  use('github/copilot.vim')
+
 end)
