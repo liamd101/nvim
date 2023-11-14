@@ -14,14 +14,6 @@ return require('packer').startup(function(use)
  }
 
    use({
- 	'rafamadriz/neon',
- 	as = "neon",
- 	-- config = function()
- 	-- 	vim.cmd('colorscheme neon')
- 	-- end
-   })
-
-   use({
        'mhartington/oceanic-next',
        as = "OceanicNext",
        config = function()
@@ -60,15 +52,13 @@ return require('packer').startup(function(use)
  }
   use({
     "L3MON4D3/LuaSnip",
-    -- follow latest release.
-    tag = "v2.0.0", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+    tag = "v2.0.0",
     run = "make install_jsregexp",
   })
 
   use('lervag/vimtex')
 
 
-  -- install without yarn or npm
   use({
       "iamcco/markdown-preview.nvim",
       run = function() vim.fn["mkdp#util#install"]() end,
@@ -77,5 +67,54 @@ return require('packer').startup(function(use)
   use("PROgram52bc/vim-scallop")
 
   use('github/copilot.vim')
+
+  use({
+    "epwalsh/obsidian.nvim",
+    tag = "*",
+    requires = {
+      "nvim-lua/plenary.nvim",
+    },
+    config = function()
+      require('obsidian').setup({
+        workspaces = {
+          {
+            name = "personal",
+            path = "~/obsidian/personal",
+          },
+        },
+
+        mappings = {
+          -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
+          ["gf"] = {
+            action = function()
+              return require("obsidian").util.gf_passthrough()
+            end,
+            opts = { noremap = false, expr = true, buffer = true },
+          },
+        },
+
+        note_id_func = function(title)
+          -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
+          local suffix = ""
+          if title ~= nil then
+            -- If title is given, transform it into valid file name.
+            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
+          else
+            -- If title is nil, just add 4 random uppercase letters to the suffix.
+            for _ = 1, 4 do
+              suffix = suffix .. string.char(math.random(65, 90))
+            end
+          end
+          return tostring(os.time()) .. "-" .. suffix
+        end,
+
+        finder = "telescope.nvim",
+
+        sort_by = "modified",
+        sort_reversed = true,
+
+      })
+    end,
+  })
 
 end)
