@@ -79,7 +79,7 @@ return require('packer').startup(function(use)
         workspaces = {
           {
             name = "personal",
-            path = "~/obsidian/personal",
+            path = "~/vaults/personal",
           },
         },
 
@@ -108,6 +108,10 @@ return require('packer').startup(function(use)
           return tostring(os.time()) .. "-" .. suffix
         end,
 
+       follow_url_func = function(url)
+          vim.fn.jobstart({"open", url})  -- Mac OS
+        end,
+
         finder = "telescope.nvim",
 
         sort_by = "modified",
@@ -115,6 +119,16 @@ return require('packer').startup(function(use)
 
       })
     end,
+  })
+
+  use({
+    "kylechui/nvim-surround",
+    tag = "*",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
   })
 
 end)
