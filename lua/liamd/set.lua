@@ -29,5 +29,4 @@ vim.opt.updatetime = 50
 vim.g.mapleader = " "
 
 vim.g.copilot_no_tab_map = true
-vim.api.nvim_set_keymap('i', '<C-J>', 'copilot#Accept("<CR>")', { silent = true, expr = true})
-
+vim.api.nvim_set_keymap("i", "<C-j>", 'copilot#Accept("<CR>")', { silent = true, expr = true })

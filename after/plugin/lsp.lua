@@ -5,6 +5,7 @@ lsp.preset('recommended')
 lsp.ensure_installed({
 	'rust_analyzer',
     'pylsp',
+    'eslint'
 })
 
 local cmp = require('cmp')
@@ -15,6 +16,9 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 	['<C-y>'] = cmp.mapping.confirm({ select = true}),
 	["<C-space>"] = cmp.mapping.complete(),
 })
+
+cmp_mappings['<Tab>'] = nil
+cmp_mappings['<S-Tab>'] = nil
 
 lsp.set_preferences({
 	sign_icons = { }
@@ -38,6 +42,7 @@ lsp.on_attach(function(client, bufnr)
 	vim.keymap.set("n", "<leader>vrn", function() vim.lsp.buf.rename() end, opts)
 	vim.keymap.set("i", "<C-h>", function() vim.lsp.buf.signature_help() end, opts)
     client.server_capabilities.semanticTokensProvider = nil 
+
 end)
 
 lsp.setup()
