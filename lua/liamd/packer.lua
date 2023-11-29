@@ -4,14 +4,12 @@
 vim.cmd [[packadd packer.nvim]]
 
 return require('packer').startup(function(use)
-  -- Packer can manage itself
+
   use 'wbthomason/packer.nvim'
 
    use {
  	  'nvim-telescope/telescope.nvim', tag = '0.1.2',
- 	  -- or                            , branch = '0.1.x',
- 	  requires = { {'nvim-lua/plenary.nvim'} }
- }
+   }
 
    use({
        'mhartington/oceanic-next',
@@ -48,8 +46,7 @@ return require('packer').startup(function(use)
  	  {'L3MON4D3/LuaSnip'},     -- Required
    }
 
-
- }
+  }
   use({
     "L3MON4D3/LuaSnip",
     tag = "v2.0.0",
@@ -57,7 +54,6 @@ return require('packer').startup(function(use)
   })
 
   use('lervag/vimtex')
-
 
   use({
       "iamcco/markdown-preview.nvim",
@@ -87,34 +83,20 @@ return require('packer').startup(function(use)
           -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault.
           ["gf"] = {
             action = function()
-              return require("obsidian").util.gf_passthrough()
-            end,
+                return require("obsidian").util.gf_passthrough()
+              end,
             opts = { noremap = false, expr = true, buffer = true },
           },
         },
 
-        note_id_func = function(title)
-          -- Create note IDs in a Zettelkasten format with a timestamp and a suffix.
-          local suffix = ""
-          if title ~= nil then
-            -- If title is given, transform it into valid file name.
-            suffix = title:gsub(" ", "-"):gsub("[^A-Za-z0-9-]", ""):lower()
-          else
-            -- If title is nil, just add 4 random uppercase letters to the suffix.
-            for _ = 1, 4 do
-              suffix = suffix .. string.char(math.random(65, 90))
-            end
-          end
-          return tostring(os.time()) .. "-" .. suffix
-        end,
-
        follow_url_func = function(url)
-          vim.fn.jobstart({"open", url})  -- Mac OS
+          vim.fn.jobstart({"open", url})
         end,
 
         finder = "telescope.nvim",
 
         sort_by = "modified",
+
         sort_reversed = true,
 
       })

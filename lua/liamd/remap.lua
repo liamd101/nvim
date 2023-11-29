@@ -27,3 +27,7 @@ vim.keymap.set("n", "<leader><leader>", function()
     vim.cmd("so")
 end)
 
+vim.keymap.set("n", "<leader>f", function()
+    vim.cmd("!cargo fmt")
+end)
+
