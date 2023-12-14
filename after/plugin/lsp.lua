@@ -17,9 +17,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
 	["<C-space>"] = cmp.mapping.complete(),
 })
 
-cmp_mappings['<Tab>'] = nil
-cmp_mappings['<S-Tab>'] = nil
-
 lsp.set_preferences({
 	sign_icons = { }
 })
@@ -44,6 +41,32 @@ lsp.on_attach(function(client, bufnr)
     client.server_capabilities.semanticTokensProvider = nil 
 
 end)
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = require('cmp_nvim_lsp').default_capabilities()
+
+local lspconfig = require('lspconfig')
+
+lspconfig.tsserver.setup({
+    capabilities = capabilities,
+    settings = {
+        codeActionOnSave = {
+            enable = true,
+            mode = "all"
+        },
+    }
+})
+
+lspconfig.eslint.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    settings = {
+        codeActionOnSave = {
+            enable = true,
+            mode = "all"
+        },
+    }
+})
 
 lsp.setup()
 
