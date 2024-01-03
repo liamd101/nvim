@@ -1,7 +1,7 @@
 # NeoVim Config
-I started using NeoVim as my primary editor, and I don't want to go back and
-would like to keep track of any changes to my config. This repo contains all of
-the plugins, keybindings, and other miscellaneous settings I use.
+I started using NeoVim as my primary editor, and I would like to
+keep track of any changes to my config. This repo contains all of
+the plugins, keybindings, and other random settings I use.
 
 ## Notable packages
 
