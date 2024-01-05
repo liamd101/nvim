@@ -93,11 +93,8 @@ return require('packer').startup(function(use)
         end,
 
         finder = "telescope.nvim",
-
         sort_by = "modified",
-
         sort_reversed = true,
-
       })
     end,
   })
@@ -110,6 +107,12 @@ return require('packer').startup(function(use)
             -- Configuration here, or leave empty to use defaults
         })
     end
+  })
+
+  use "nvim-tree/nvim-web-devicons"
+  use({
+      "folke/trouble.nvim",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
   })
 
 end)

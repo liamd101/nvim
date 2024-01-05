@@ -28,6 +28,6 @@ vim.keymap.set("n", "<leader><leader>", function()
 end)
 
 vim.keymap.set("n", "<leader>f", function()
-    vim.cmd("!cargo fmt")
+    vim.lsp.buf.format()
 end)
 
