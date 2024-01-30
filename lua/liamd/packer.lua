@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
     use('github/copilot.vim')
     use('tpope/vim-fugitive')
     use('tmsvg/pear-tree')
-    use('nvim-treesitter/nvim-treesitter', { run = ':TSUpdate' })
+    use({ 'nvim-treesitter/nvim-treesitter', commit = 'f197a15', run = ':TSUpdate' })
     use({ 'nvim-telescope/telescope.nvim', tag = '0.1.5' })
 
     use({
@@ -49,6 +49,7 @@ return require('packer').startup(function(use)
         run = "make install_jsregexp",
     })
 
+    use("nvim-lua/plenary.nvim")
     use({
         "epwalsh/obsidian.nvim",
         tag = "*",
@@ -77,6 +78,9 @@ return require('packer').startup(function(use)
                 finder = "telescope.nvim",
                 sort_by = "modified",
                 sort_reversed = true,
+                ui = {
+                    enable = false,
+                },
             })
         end,
     })
