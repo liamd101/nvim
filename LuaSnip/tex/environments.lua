@@ -18,7 +18,7 @@ return {
 
         fmt([[
             \begin{<>}
-            <>
+                <>
             \end{<>}
             ]],
 
@@ -95,7 +95,20 @@ return {
             { delimiters = "<>" }
             ),
         { condition = tex_utils.line_begin }
-    )
+    ),
 
+    s({ trig = "prob", dscr = "Problem", snippetType="snippet" },
+        fmt([[
+            \begin{problem}{<>}
+                <>
+            \end{problem}
+            ]],
+
+            { i(1), i(0) },
+
+            { delimiters = "<>" }
+            ),
+        { condition = tex_utils.line_begin }
+    )
 }
 

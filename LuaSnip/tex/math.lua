@@ -48,7 +48,7 @@ return {
     s({ trig = "dm", dscr = "Math", snippetType = "autosnippet" },
         fmt([[
             \[
-            <>
+                <>
             .\]<>
             ]],
 
@@ -92,6 +92,11 @@ return {
         )
     ),
 
+    s({ trig = "cc", dscr = "Subset", snippetType = "autosnippet" },
+        t("\\subseteq"),
+        { condition = tex_utils.in_mathzone }
+    ),
+
     s({ trig = "//", dscr = "Fraction", snippetType = "autosnippet" },
         fmt([[\frac{<>}{<>}<>]],
 
@@ -107,7 +112,7 @@ return {
     ),
 
     s({ trig = "==", dscr = "Equals", snippetType = "autosnippet" },
-        fmt([[&= <> \\\\]],
+        fmt([[&= <> \\]],
             { i(1) },
             { delimiters = "<>" })
     ),

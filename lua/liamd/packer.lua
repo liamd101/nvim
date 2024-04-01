@@ -5,7 +5,6 @@ return require('packer').startup(function(use)
 
     use('lervag/vimtex')
     use("PROgram52bc/vim-scallop")
-    use('github/copilot.vim')
     use('tpope/vim-fugitive')
     use('tmsvg/pear-tree')
     use({ 'nvim-treesitter/nvim-treesitter', commit = 'f197a15', run = ':TSUpdate' })
@@ -109,6 +108,35 @@ return require('packer').startup(function(use)
                     close = "<esc>",
                     cancel = "q",
                 },
+            })
+        end,
+    })
+
+    use({
+        "itchyny/lightline.vim",
+        commit = "58c97bc21c6f657d3babdd4eefce7593e30e75ce",
+    })
+
+    use({
+        "andweeb/presence.nvim",
+        config = function()
+            require("presence").setup({
+                auto_update         = true,
+                neovim_image_text   = "NeoVim",
+                main_image          = "neovim",
+                client_id           = "793271441293967371",
+                log_level           = nil,
+                debounce_timeout    = 10,
+                enable_line_number  = false,
+                buttons             = false,
+                file_assets         = {},
+                show_time           = true,
+
+                -- Rich Presence text options
+                editing_text        = "Editing %s",
+                file_explorer_text  = "Browsing %s",
+                reading_text        = "Reading %s",
+                workspace_text      = "Working on %s",
             })
         end,
     })
