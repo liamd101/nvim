@@ -7,14 +7,16 @@ return require('packer').startup(function(use)
     use("PROgram52bc/vim-scallop")
     use('tpope/vim-fugitive')
     use('tmsvg/pear-tree')
+    use('simrat39/rust-tools.nvim')
     use({ 'nvim-treesitter/nvim-treesitter', commit = 'f197a15', run = ':TSUpdate' })
     use({ 'nvim-telescope/telescope.nvim', tag = '0.1.5' })
+    use({ 'github/copilot.vim' })
 
     use({
-        'mhartington/oceanic-next',
-        as = "OceanicNext",
+        "catppuccin/nvim",
+        as = "catppuccin",
         config = function()
-            vim.cmd('colorscheme OceanicNext')
+            vim.cmd('colorscheme catppuccin')
         end
     })
 
@@ -39,7 +41,7 @@ return require('packer').startup(function(use)
                     call(vim.cmd, 'MasonUpdate')
                 end,
             },
-        }
+        },
     })
 
     use({

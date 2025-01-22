@@ -26,9 +26,12 @@ vim.opt.isfname:append("@-@")
 
 vim.opt.updatetime = 50
 
-vim.opt_local.conceallevel = 2
+-- vim.opt_local.conceallevel = 2
 
 vim.g.mapleader = " "
 
 vim.g.copilot_no_tab_map = true
 vim.api.nvim_set_keymap("i", "<C-j>", 'copilot#Accept("<CR>")', { silent = true, expr = true })
+
+vim.opt.colorcolumn = '80'
+vim.api.nvim_create_autocmd('Filetype', { pattern = 'rust', command = 'set colorcolumn=100' })

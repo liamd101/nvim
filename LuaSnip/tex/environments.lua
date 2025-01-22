@@ -1,114 +1,210 @@
-local ls = require('luasnip')
-local s = ls.snippet
-local sn = ls.snippet_node
-local isn = ls.indent_snippet_node
-local t = ls.text_node
-local i = ls.insert_node
-local f = ls.function_node
-local c = ls.choice_node
-local d = ls.dynamic_node
-local fmt = require("luasnip.extras.fmt").fmt
-local fmta = require("luasnip.extras.fmt").fmta
-local rep = require("luasnip.extras").rep
-local tex_utils = require('luasnip-helper-funcs')
+local helpers = require('liamd.luasnip-helper-funcs')
+local get_visual = helpers.get_visual
 
+-- Math context detection
+local tex = {}
+tex.in_mathzone = function() return vim.fn['vimtex#syntax#in_mathzone']() == 1 end
+tex.in_text = function() return not tex.in_mathzone() end
 
-return {
-    s({ trig = "beg", dscr = "begin{} / end{}", snippetType="autosnippet" },
+local line_begin = require("luasnip.extras.expand_conditions").line_begin
 
-        fmt([[
-            \begin{<>}
-                <>
-            \end{<>}
-            ]],
-
-        {
-            i(1),
-            i(0),
-            rep(1)
-        },
-
-        { delimiters = "<>" }
-        ),
-
-        { condition = tex_utils.line_begin }
-    ),
-
-    s({ trig = "enum", dscr = "Enumerate", snippetType="autosnippet" },
-
-        fmt([[
-            \begin{enumerate}
-                \item <>
-            \end{enumerate}
-            ]],
-
-            { i(0) },
-
-            { delimiters = "<>" }
-            ),
-
-        { condition = tex_utils.line_begin }
-    ),
-
-    s({ trig = "item", dscr = "Itemize", snippetType="autosnippet" },
-
-        fmt([[
-            \begin{itemize}
-                \item <>
-            \end{itemize}
-            ]],
-
-            { i(0) },
-
-            { delimiters = "<>" }
-            ),
-        { condition = tex_utils.line_begin }
-    ),
-
-    s({ trig = "desc", dscr = "Description" },
-        fmt([[
-            \begin{description}
-                \item<> <>
-            \end{description}
-            ]],
-
+-- Return snippet tables
+return
+{
+    -- GENERIC ENVIRONMENT
+    s({ trig = "new", snippetType = "autosnippet" },
+        fmta(
+            [[
+        \begin{<>}
+            <>
+        \end{<>}
+      ]],
             {
                 i(1),
-                i(0)
-            },
+                d(2, get_visual),
+                rep(1),
+            }
+        ),
+        { condition = line_begin }
+    ),
+    -- ENVIRONMENT WITH ONE EXTRA ARGUMENT
+    s({ trig = "n2", snippetType = "autosnippet" },
+        fmta(
+            [[
+        \begin{<>}{<>}
+            <>
+        \end{<>}
+      ]],
+            {
+                i(1),
+                i(2),
+                d(3, get_visual),
+                rep(1),
+            }
+        ),
+        { condition = line_begin }
+    ),
+    -- ENVIRONMENT WITH TWO EXTRA ARGUMENTS
+    s({ trig = "n3", snippetType = "autosnippet" },
+        fmta(
+            [[
+        \begin{<>}{<>}{<>}
+            <>
+        \end{<>}
+      ]],
+            {
+                i(1),
+                i(2),
+                i(3),
+                d(4, get_visual),
+                rep(1),
+            }
+        ),
+        { condition = line_begin }
+    ),
+    -- TOPIC ENVIRONMENT (my custom tcbtheorem environment)
+    s({ trig = "nt", snippetType = "autosnippet" },
+        fmta(
+            [[
+        \begin{topic}{<>}{<>}
+            <>
+        \end{topic}
+      ]],
+            {
+                i(1),
+                i(2),
+                d(3, get_visual),
+            }
+        ),
+        { condition = line_begin }
+    ),
+    -- EQUATION
+    s({ trig = "nn", snippetType = "autosnippet" },
+        fmta(
+            [[
+        \begin{equation*}
+            <>
+        \end{equation*}
+      ]],
+            {
+                i(1),
+            }
+        ),
+        { condition = line_begin }
+    ),
+    -- SPLIT EQUATION
+    s({ trig = "ss", snippetType = "autosnippet" },
+        fmta(
+            [[
+        \begin{equation*}
+            \begin{split}
+                <>
+            \end{split}
+        \end{equation*}
+      ]],
+            {
+                d(1, get_visual),
+            }
+        ),
+        { condition = line_begin }
+    ),
+    -- ALIGN
+    s({ trig = "all", snippetType = "autosnippet" },
+        fmta(
+            [[
+        \begin{align*}
+            <>
+        \end{align*}
+      ]],
+            {
+                i(1),
+            }
+        ),
+        { condition = line_begin }
+    ),
+    -- ITEMIZE
+    s({ trig = "itt", snippetType = "autosnippet" },
+        fmta(
+            [[
+        \begin{itemize}
 
-            { delimiters = "<>" }
-            ),
+            \item <>
 
-        { condition = tex_utils.line_begin }
+        \end{itemize}
+      ]],
+            {
+                i(0),
+            }
+        ),
+        { condition = line_begin }
+    ),
+    -- ENUMERATE
+    s({ trig = "enn", snippetType = "autosnippet" },
+        fmta(
+            [[
+        \begin{enumerate}
+
+            \item <>
+
+        \end{enumerate}
+      ]],
+            {
+                i(0),
+            }
+        )
+    ),
+    -- INLINE MATH
+    s({ trig = "([^%l])mk", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
+        fmta(
+            "<>$<>$",
+            {
+                f(function(_, snip) return snip.captures[1] end),
+                d(1, get_visual),
+            }
+        )
+    ),
+    -- INLINE MATH ON NEW LINE
+    s({ trig = "^mk", regTrig = true, wordTrig = false, snippetType = "autosnippet" },
+        fmta(
+            "$<>$",
+            {
+                i(1),
+            })),
+
+    -- BLOCK MATH
+    s({ trig = "dm", snippetType = "autosnippet" },
+        fmta([[
+        \[
+            <>
+        .\]
+        <>
+        ]],
+            {
+                d(1, get_visual),
+                i(2),
+            }
+        ),
+        { condition = line_begin }
     ),
 
-    s({ trig = "case", dscr = "Cases", snippetType="autosnippet" },
-        fmt([[
-            \begin{cases}
-                <>
-            \end{cases}
-            ]],
-
-            { i(0) },
-
-            { delimiters = "<>" }
-            ),
-        { condition = tex_utils.line_begin }
+    -- FIGURE
+    s({ trig = "fig" },
+        fmta(
+            [[
+        \begin{figure}[htb!]
+          \centering
+          \includegraphics[width=<>\linewidth]{<>}
+          \caption{<>}
+          \label{fig:<>}
+        \end{figure}
+        ]],
+            {
+                i(1),
+                i(2),
+                i(3),
+                i(4),
+            }
+        ),
+        { condition = line_begin }
     ),
-
-    s({ trig = "prob", dscr = "Problem", snippetType="snippet" },
-        fmt([[
-            \begin{problem}{<>}
-                <>
-            \end{problem}
-            ]],
-
-            { i(1), i(0) },
-
-            { delimiters = "<>" }
-            ),
-        { condition = tex_utils.line_begin }
-    )
 }
-

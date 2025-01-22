@@ -11,7 +11,7 @@ local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
 
-local tex_utils = require('luasnip-helper-funcs')
+local tex_utils = require('liamd.luasnip-helper-funcs')
 
 
 return {
@@ -24,6 +24,7 @@ return {
             \usepackage[shortlabels]{enumitem}
             \usepackage[english]{babel}
 
+            \newcommand{\C}{\mathbb{C}}
             \newcommand{\N}{\mathbb{N}}
             \newcommand{\Z}{\mathbb{Z}}
             \newcommand{\R}{\mathbb{R}}
@@ -155,5 +156,16 @@ return {
         { condition = tex_utils.line_begin }
     ),
 
+    s({ trig = "beg", descr = "Begin environment" },
+        fmt([[
+            \begin{<>}
+                <>
+            \end{<>}
+        ]],
+        { i(1), i(2), rep(1) },
+        { delimiters = "<>" }
+        ),
+        { condition = tex_utils.line_begin }
+    ),
 }
 

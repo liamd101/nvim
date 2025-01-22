@@ -10,7 +10,7 @@ local d = ls.dynamic_node
 local fmt = require("luasnip.extras.fmt").fmt
 local fmta = require("luasnip.extras.fmt").fmta
 local rep = require("luasnip.extras").rep
-local tex_utils = require('luasnip-helper-funcs')
+local tex_utils = require('liamd.luasnip-helper-funcs')
 
 return {
     s({ trig = "snip", dscr = "LuaSnip template" },
